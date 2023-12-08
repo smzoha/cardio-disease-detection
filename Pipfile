@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 kaggle = '*'
+pandas = '*'
+numpy = '*'
+matplotlib = '*'
+
+mrmr_selection = '*'
 
 [dev-packages]
 
