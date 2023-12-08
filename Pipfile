@@ -10,6 +10,7 @@ numpy = '*'
 matplotlib = '*'
 
 mrmr_selection = '*'
+scikit-learn = '*'
 
 [dev-packages]
 

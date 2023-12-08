@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 from mrmr import mrmr_classif
+from sklearn.preprocessing import MinMaxScaler
 
 data = pd.read_csv('./data/cardio_train.csv', delimiter=';')
 features = data[data.columns[1:-1]]
@@ -21,7 +22,8 @@ features = features[selected_features]
 print('First 10 Rows of Features after selection:', features.head(20), sep='\n')
 print('=======================')
 
-features = (features - features.mean()) / features.std()
+scaler = MinMaxScaler()
+features[features.columns] = scaler.fit_transform(features)
 print('First 10 Rows of Features after standardization:', features.head(20), sep='\n')
 
 if not os.path.exists('./data'):
