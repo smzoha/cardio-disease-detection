@@ -9,6 +9,8 @@ pandas = '*'
 numpy = '*'
 matplotlib = '*'
 
+mrmr_selection = '*'
+
 [dev-packages]
 
 [requires]
