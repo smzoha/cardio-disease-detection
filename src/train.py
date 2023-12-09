@@ -5,7 +5,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, mean_squared_error
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.naive_bayes import MultinomialNB, GaussianNB
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import LinearSVC
 
 
@@ -36,13 +35,6 @@ y = data[data.columns[-1]]
 
 print('Splitting data for training and testing (70-30 split)')
 x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.7)
-
-print('Normalizing data for training using MinxMaxScaler')
-scaler = MinMaxScaler()
-scaler.fit(x_train)
-
-x_train = scaler.transform(x_train)
-x_test = scaler.transform(x_test)
 
 print('====== Multinomial Naive Bayes ======')
 mnb_model = MultinomialNB()
