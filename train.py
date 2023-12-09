@@ -6,6 +6,7 @@ from sklearn.metrics import classification_report, mean_squared_error
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.naive_bayes import MultinomialNB, GaussianNB
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.svm import LinearSVC
 
 
 def train_valid_test(model, title, train_x, train_y, test_x, test_y):
@@ -18,7 +19,7 @@ def train_valid_test(model, title, train_x, train_y, test_x, test_y):
     plt.plot(score)
     plt.xlabel('Iteration')
     plt.ylabel('Accuracy')
-    plt.title('Cross-validation score for accuracy of', title)
+    plt.title('Cross-validation score for accuracy of ' + title)
     plt.show()
 
     y_pred = model.predict(test_x)
@@ -58,3 +59,7 @@ train_valid_test(lr_model, 'Logistic Regression', x_train, y_train, x_test, y_te
 print('====== Random Forest ======')
 rf_model = RandomForestClassifier(n_estimators=25)
 train_valid_test(rf_model, 'Random Forest', x_train, y_train, x_test, y_test)
+
+print('====== SVM ======')
+svm = LinearSVC(dual=False)
+train_valid_test(svm, 'SVM', x_train, y_train, x_test, y_test)
