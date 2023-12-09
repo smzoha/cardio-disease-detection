@@ -31,7 +31,7 @@ def plot_data(dataset, attr):
     plt.show()
 
 
-data = pd.read_csv('./data/cardio_train.csv', delimiter=';')
+data = pd.read_csv('../data/cardio_train.csv', delimiter=';')
 features = data[data.columns[1:-1]]
 target = data[data.columns[-1]]
 

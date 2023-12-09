@@ -1,8 +1,8 @@
 import os
 import kaggle
 
-if not os.path.exists('./data'):
-    os.mkdir('./data/')
+if not os.path.exists('../data'):
+    os.mkdir('../data/')
 
 print('Authenticating...')
 kaggle.api.authenticate()

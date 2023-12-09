@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from mrmr import mrmr_classif
 
-data = pd.read_csv('./data/cardio_train.csv', delimiter=';')
+data = pd.read_csv('../data/cardio_train.csv', delimiter=';')
 features = data[data.columns[1:-1]]
 target = data[data.columns[-1]]
 
@@ -34,8 +34,8 @@ features = features[selected_features]
 print('First 10 Rows of Features after selection:', features.head(10), sep='\n')
 print('=======================')
 
-if not os.path.exists('./data'):
-    os.makedirs('./data')
+if not os.path.exists('../data'):
+    os.makedirs('../data')
 
 print('Writing normalized dataset to ./data/cardio_train_updated.csv')
 output_dataframe = pd.concat([features, target], axis=1)

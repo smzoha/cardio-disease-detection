@@ -29,7 +29,7 @@ def train_valid_test(model, title, train_x, train_y, test_x, test_y):
     print('Mean-Squared Error for', title, ': %.2f', mean_squared_error(test_y, y_pred))
 
 
-data = pd.read_csv('./data/cardio_train_updated.csv')
+data = pd.read_csv('../data/cardio_train_updated.csv')
 
 X = data[data.columns[:-1]]
 y = data[data.columns[-1]]
