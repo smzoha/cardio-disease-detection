@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
+from sklearn.calibration import CalibratedClassifierCV
 
 from train_util import train_valid_test, split_train_test_data
 
@@ -18,4 +19,5 @@ train_valid_test(rf_model, 'Random Forest', x_train, y_train, x_test, y_test)
 
 print('====== SVM ======')
 svm = LinearSVC(dual=False)
-train_valid_test(svm, 'SVM', x_train, y_train, x_test, y_test)
+svm_cv = CalibratedClassifierCV(svm)
+train_valid_test(svm_cv, 'SVM', x_train, y_train, x_test, y_test)
