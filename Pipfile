@@ -11,6 +11,7 @@ matplotlib = '*'
 
 mrmr_selection = '*'
 scikit-learn = '*'
+lime = '*'
 
 [dev-packages]
 
