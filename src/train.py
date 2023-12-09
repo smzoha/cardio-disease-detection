@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, mean_squared_error
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.naive_bayes import MultinomialNB, GaussianNB
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.svm import LinearSVC
 
 
 def train_valid_test(model, title, train_x, train_y, test_x, test_y):
@@ -18,7 +18,7 @@ def train_valid_test(model, title, train_x, train_y, test_x, test_y):
     plt.plot(score)
     plt.xlabel('Iteration')
     plt.ylabel('Accuracy')
-    plt.title('Cross-validation score for accuracy of', title)
+    plt.title('Cross-validation score for accuracy of ' + title)
     plt.show()
 
     y_pred = model.predict(test_x)
@@ -28,20 +28,13 @@ def train_valid_test(model, title, train_x, train_y, test_x, test_y):
     print('Mean-Squared Error for', title, ': %.2f', mean_squared_error(test_y, y_pred))
 
 
-data = pd.read_csv('./data/cardio_train_updated.csv')
+data = pd.read_csv('../data/cardio_train_updated.csv')
 
 X = data[data.columns[:-1]]
 y = data[data.columns[-1]]
 
 print('Splitting data for training and testing (70-30 split)')
 x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.7)
-
-print('Normalizing data for training using MinxMaxScaler')
-scaler = MinMaxScaler()
-scaler.fit(x_train)
-
-x_train = scaler.transform(x_train)
-x_test = scaler.transform(x_test)
 
 print('====== Multinomial Naive Bayes ======')
 mnb_model = MultinomialNB()
@@ -58,3 +51,7 @@ train_valid_test(lr_model, 'Logistic Regression', x_train, y_train, x_test, y_te
 print('====== Random Forest ======')
 rf_model = RandomForestClassifier(n_estimators=25)
 train_valid_test(rf_model, 'Random Forest', x_train, y_train, x_test, y_test)
+
+print('====== SVM ======')
+svm = LinearSVC(dual=False)
+train_valid_test(svm, 'SVM', x_train, y_train, x_test, y_test)

@@ -3,16 +3,26 @@ import os
 import pandas as pd
 from mrmr import mrmr_classif
 
-data = pd.read_csv('./data/cardio_train.csv', delimiter=';')
-features = data[data.columns[1:-1]]
-target = data[data.columns[-1]]
+data = pd.read_csv('../data/cardio_train.csv', delimiter=';')
 
 print('Number of empty rows:', data.isna().sum(), sep='\n')
 print('=======================')
 print('Number of duplicate rows:', data.duplicated().sum())
 print('=======================')
 
-print('First 10 Age, Height & Weight values before engineering', data[['age', 'height', 'weight']].head(10), sep='\n')
+print('Remove invalid blood pressure level values')
+data = data[data['ap_hi'] > 0]
+data = data[data['ap_hi'] <= 200]
+
+data = data[data['ap_lo'] > 0]
+data = data[data['ap_lo'] <= 200]
+print('=======================')
+
+features = data[data.columns[1:-1]]
+target = data[data.columns[-1]]
+
+print('First 10 Age, Height & Weight values before engineering', features[['age', 'height', 'weight']].head(10),
+      sep='\n')
 print('=======================')
 
 print('Calculating age in years & BMI from weight and height')
@@ -34,10 +44,10 @@ features = features[selected_features]
 print('First 10 Rows of Features after selection:', features.head(10), sep='\n')
 print('=======================')
 
-if not os.path.exists('./data'):
-    os.makedirs('./data')
+if not os.path.exists('../data'):
+    os.makedirs('../data')
 
-print('Writing normalized dataset to ./data/cardio_train_updated.csv')
+print('Writing normalized dataset to ../data/cardio_train_updated.csv')
 output_dataframe = pd.concat([features, target], axis=1)
-output_dataframe.to_csv('./data/cardio_train_updated.csv', index=False)
+output_dataframe.to_csv('../data/cardio_train_updated.csv', index=False)
 print('Write successful!')
