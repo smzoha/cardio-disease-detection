@@ -2,7 +2,6 @@ import os
 
 import pandas as pd
 from mrmr import mrmr_classif
-from sklearn.preprocessing import MinMaxScaler
 
 data = pd.read_csv('./data/cardio_train.csv', delimiter=';')
 features = data[data.columns[1:-1]]
@@ -13,18 +12,27 @@ print('=======================')
 print('Number of duplicate rows:', data.duplicated().sum())
 print('=======================')
 
+print('First 10 Age, Height & Weight values before engineering', data[['age', 'height', 'weight']].head(10), sep='\n')
+print('=======================')
+
+print('Calculating age in years & BMI from weight and height')
+features['age'] = features['age'].transform(lambda age: age / 365)
+features['bmi'] = (features['weight'] / (features['height'] * features['height'])) * 10000
+
+print('================')
+print('First 10 Age & BMI values', features[['age', 'bmi']].head(10), sep='\n')
+print('================')
+
+features.drop(['height', 'weight'], axis=1, inplace=True)
+
 print('Running mRMR for finding top 5 features')
-selected_features = mrmr_classif(X=features, y=target, K=5)
+selected_features = mrmr_classif(X=features, y=target, K=6)
 print('Features selected by mRMR:', selected_features)
 
 features = features[selected_features]
 
-print('First 10 Rows of Features after selection:', features.head(20), sep='\n')
+print('First 10 Rows of Features after selection:', features.head(10), sep='\n')
 print('=======================')
-
-scaler = MinMaxScaler()
-features[features.columns] = scaler.fit_transform(features)
-print('First 10 Rows of Features after standardization:', features.head(20), sep='\n')
 
 if not os.path.exists('./data'):
     os.makedirs('./data')
